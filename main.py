@@ -22,9 +22,10 @@ def python_challenge_datah():
 
             suit_order_dict = {"S": 1, "D": 2, "C": 3, "H": 4}
 
-            def check_royal_flush(hand):
+            def check_royal_straight_flush(hand):
                 cards = ''.join([h[0] for h in hand])
-                if cards == "TJQKA":
+                suits = [h[1] for h in hand]
+                if cards == "TJQKA" and len(set(suits)) == 1:
                     return True
                 return False
 
@@ -198,20 +199,21 @@ def python_challenge_datah():
             values = dict(zip('23456789TJQKA', range(2, 15)))
             poker_hand_1 = sorted(self.cards(), key=lambda x: values[x[0]])
             poker_hand_2 = sorted(challenge_poker_hand.cards(), key=lambda x: values[x[0]])
-
+            # "TS JS QS KS AS" - "TC JS QC KS AC"
             #1 - Royal Straight Flush
-            if check_royal_flush(poker_hand_1) or check_royal_flush(poker_hand_2):
+            if check_royal_straight_flush(poker_hand_1) or check_royal_straight_flush(poker_hand_2):
 
-                if check_royal_flush(poker_hand_1) and check_royal_flush(poker_hand_2):
-
+                if check_royal_straight_flush(poker_hand_1) and check_royal_straight_flush(poker_hand_2):
+                    print("Os 2 estão com royal")
                     if get_straight_flush_highest_suit(poker_hand_1) > get_straight_flush_highest_suit(poker_hand_2):
                         return "WIN"
 
                     else:
                         return "LOSS"
 
-                elif check_royal_flush(poker_hand_1):
+                elif check_royal_straight_flush(poker_hand_1):
                     return "WIN"
+
                 else:
                     return "LOSS"
 
@@ -495,7 +497,6 @@ def python_challenge_datah():
 
     print(PokerHand("TS JS QS KS AS").compare_with(PokerHand("QH QS QC AS 8H")))
 
-    #No teste unitário ele está como WIN porém o resultado correto conforme as regras do poker é LOSS
     print(PokerHand("AC AH AS AS KS").compare_with(PokerHand("TC JS QC KS AC")))
 
     print(PokerHand("AC AH AS AS KS").compare_with(PokerHand("QH QS QC AS 8H")))
