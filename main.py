@@ -17,11 +17,14 @@ def python_challenge_datah():
 
         def compare_with(self, challenge_poker_hand):
 
+            #Dictionary that check the card signature with her value
             card_order_dict = {"2": 2, "3": 3, "4": 4, "5": 5, "6": 6, "7": 7, "8": 8, "9": 9, "T": 10, "J": 11,
                                "Q": 12, "K": 13, "A": 14}
 
+            #Dictionary that check the suit signature with his value
             suit_order_dict = {"S": 1, "D": 2, "C": 3, "H": 4}
 
+            #Checking method for Royal Straight Flush
             def check_royal_straight_flush(hand):
                 cards = ''.join([h[0] for h in hand])
                 suits = [h[1] for h in hand]
@@ -29,6 +32,13 @@ def python_challenge_datah():
                     return True
                 return False
 
+            #Checking method for Royal Straight Flush Suit
+            def get_straight_flush_highest_suit(hand):
+                suit_value = [h[1] for h in hand]
+                suit = list(set(suit_value))
+                return suit_order_dict[suit[0]]
+
+            #Checking method for Flush
             def check_flush(hand):
                 suit = set([h[1] for h in hand])
                 if len(suit) == 1:
@@ -36,6 +46,7 @@ def python_challenge_datah():
                 else:
                     return False
 
+            #Checking method for Straight
             def check_straight(hand):
                 card_values = [h[0] for h in hand]
                 values_counts = defaultdict(lambda: 0)
@@ -52,12 +63,14 @@ def python_challenge_datah():
                         return True
                     return False
 
+            #Checking method for Straight Flush
             def check_straight_flush(hand):
                 if check_straight(hand) and check_flush(hand):
                     return True
                 else:
                     return False
 
+            # Checking method for Four of a Kind
             def check_four_kind(hand):
                 card_values = [i[0] for i in hand]
                 value_counts = defaultdict(lambda: 0)
@@ -67,6 +80,15 @@ def python_challenge_datah():
                     return True
                 return False
 
+            # Checking method for Four of kind highest card
+            def check_four_highest_card(hand):
+                card_values = [h[0] for h in hand]
+                value_dict = defaultdict(lambda: 0)
+                for i in set(card_values):
+                    value_dict[card_values.count(i)] = i
+                return card_order_dict[value_dict[4]]
+
+            # Checking method for Full House
             def check_full_house(hand):
                 card_values = [i[0] for i in hand]
                 value_counts = defaultdict(lambda: 0)
@@ -77,6 +99,7 @@ def python_challenge_datah():
                 else:
                     return False
 
+            # Checking method for Three of a Kind
             def check_three_kind(hand):
                 card_value = [i[0] for i in hand]
                 value_counts = defaultdict(lambda: 0)
@@ -87,6 +110,15 @@ def python_challenge_datah():
                 else:
                     return False
 
+            # Checking method for Three of a Kind highest card
+            def check_three_highest_card(hand):
+                card_values = [h[0] for h in hand]
+                value_dict = defaultdict(lambda: 0)
+                for i in set(card_values):
+                    value_dict[card_values.count(i)] = i
+                return card_order_dict[value_dict[3]]
+
+            # Checking method for Two Pair
             def check_two_pair(hand):
                 card_values = [i[0] for i in hand]
                 value_counts = defaultdict(lambda: 0)
@@ -97,6 +129,7 @@ def python_challenge_datah():
                 else:
                     return False
 
+            # Checking method for One Pair
             def check_one_pairs(hand):
                 card_values = [i[0] for i in hand]
                 value_counts = defaultdict(lambda: 0)
@@ -107,20 +140,7 @@ def python_challenge_datah():
                 else:
                     return False
 
-            def check_four_highest_card(hand):
-                card_values = [h[0] for h in hand]
-                value_dict = defaultdict(lambda: 0)
-                for i in set(card_values):
-                    value_dict[card_values.count(i)] = i
-                return card_order_dict[value_dict[4]]
-
-            def check_three_highest_card(hand):
-                card_values = [h[0] for h in hand]
-                value_dict = defaultdict(lambda: 0)
-                for i in set(card_values):
-                    value_dict[card_values.count(i)] = i
-                return card_order_dict[value_dict[3]]
-
+            #Checking method for Two Pair highest card
             def check_double_pair_highest_card(hand):
                 card_values = [h[0] for h in hand]
                 card_list = []
@@ -130,6 +150,7 @@ def python_challenge_datah():
 
                 return card_order_dict[card_list[-1]]
 
+            # Checking method for Two Pair highest card
             def check_double_pair_highest_solo_card(hand):
                 card_values = [h[0] for h in hand]
                 card_list = []
@@ -139,6 +160,7 @@ def python_challenge_datah():
 
                 return card_order_dict[card_list[-1]]
 
+            # Checking method for Two Pair highest solo card
             def check_pair_highest_solo_card(hand):
                 card_values = [h[0] for h in hand]
                 card_list = []
@@ -147,12 +169,14 @@ def python_challenge_datah():
                         card_list.append(card)
                 return card_order_dict[card_list[-1]]
 
+            # Checking method for Pair highest card
             def check_pair_highest_card(hand):
                 card_values = [h[0] for h in hand]
                 for card in card_values:
                     if card_values.count(card) == 2:
                         return card_order_dict[card]
 
+            # Checking method for highest card
             def get_highest_card(hand):
                 value_poker_hand1 = [h[0] for h in hand]
                 value_list = []
@@ -160,6 +184,7 @@ def python_challenge_datah():
                     value_list.append(card_order_dict[i])
                 return max(value_list)
 
+            # Checking method for highest straight
             def get_straight_value(hand):
                 card_value = [h[0] for h in hand]
                 straight_sum = 0
@@ -171,11 +196,7 @@ def python_challenge_datah():
 
                 return straight_sum
 
-            def get_straight_flush_highest_suit(hand):
-                suit_value = [h[1] for h in hand]
-                suit = list(set(suit_value))
-                return suit_order_dict[suit[0]]
-
+            # Checking method for Two Pair solo card highest suit
             def get_double_pair_solo_card_highest_suit(hand):
                 card_value = [h[0] for h in hand]
                 card_position = -1
@@ -184,6 +205,7 @@ def python_challenge_datah():
                     if card_value.count(card) == 1:
                         return suit_order_dict[hand[card_position][1]]
 
+            # Checking method solo card highest suit
             def get_pair_highest_card_suit(hand):
                 card_value = [h[0] for h in hand]
                 card_position = -1
@@ -199,12 +221,11 @@ def python_challenge_datah():
             values = dict(zip('23456789TJQKA', range(2, 15)))
             poker_hand_1 = sorted(self.cards(), key=lambda x: values[x[0]])
             poker_hand_2 = sorted(challenge_poker_hand.cards(), key=lambda x: values[x[0]])
-            # "TS JS QS KS AS" - "TC JS QC KS AC"
+
             #1 - Royal Straight Flush
             if check_royal_straight_flush(poker_hand_1) or check_royal_straight_flush(poker_hand_2):
 
                 if check_royal_straight_flush(poker_hand_1) and check_royal_straight_flush(poker_hand_2):
-                    print("Os 2 estão com royal")
                     if get_straight_flush_highest_suit(poker_hand_1) > get_straight_flush_highest_suit(poker_hand_2):
                         return "WIN"
 
